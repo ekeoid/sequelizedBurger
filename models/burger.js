@@ -1,3 +1,20 @@
+module.exports = function(sequelize, DataTypes) {
+    let Burger = sequelize.define("burgers", {
+        burger_name: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        deourved: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
+        }
+    });
+
+    return Burger;
+};
+
+
+/*
 var orm = require("../config/orm.js");
 
 var burger = {
@@ -22,3 +39,4 @@ var burger = {
 };
 
 module.exports = burger;
+*/
