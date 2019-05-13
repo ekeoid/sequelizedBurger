@@ -3,6 +3,7 @@
 ## Overview
 
 You can find the instructions for this assignment here: [homework-instructions.md](https://github.com/ekeoid/UNC-Bootcamp-2019-Class/blob/master/01-Class-Content/14-sequelize/02-Homework/Instructions/homework_instructions.md)
+You can find the video overview demo here: [video-demo](https://www.youtube.com/watch?v=msvdn95x9OM)
 
 ## Technologies Used
 
