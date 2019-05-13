@@ -1,10 +1,12 @@
+console.log("Burger DB loaded");
+
 module.exports = function(sequelize, DataTypes) {
-    let Burger = sequelize.define("burgers", {
+    var Burger = sequelize.define("burgers", {
         burger_name: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        deourved: {
+        devoured: {
             type: DataTypes.BOOLEAN,
             defaultValue: false
         }

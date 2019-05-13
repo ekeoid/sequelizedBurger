@@ -1,44 +1,30 @@
-const db = require("../models");
+var db = require("../models");
 
 const express = require("express");
 const router = express.Router();
 
+console.log("Burger API loaded");
+console.log(db.Burger);
 
 router.get("/api/burgers", function(req, res) {
-
+    db.burgers.findAll({}).then(function(result) {
+        res.json(result);
+    });
 });
 
 router.post("/api/burgers", function(req, res) {
 
+    console.log(req.body.burger_name);
+
+    db.burgers.create({
+        burger_name: req.body.burger_name,
+    }).then(function(results) {
+        res.json(results);
+    });
 });
 
 router.put("/api/burgers/:id", function(req, res) {
 
 });
-
-/*
-var orm = require("../config/orm.js");
-
-var burger = {
-  all: function(cb) {
-    orm.all("burgers", function(res) {
-      cb(res);
-    });
-  },
-  create: function(name, cb) {
-    orm.create("burgers", [
-      "burger_name", "devoured"
-    ], [
-      name, false
-    ], cb);
-  },
-  update: function(id, cb) {
-    var condition = "id=" + id;
-    orm.update("burgers", {
-      devoured: true
-    }, condition, cb);
-  }
-};
-*/
 
 module.exports = router;
