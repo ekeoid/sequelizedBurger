@@ -25,12 +25,21 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // Import routes and give the server access to them.
-var routes = require("./controllers/burgersController.js");
+const apiRoutes = require("./routes/burger-api-routes");
+const htmlRoutes = require("./routes/html-routes");
 
-app.use(routes);
+app.use(apiRoutes);
+app.use(htmlRoutes);
 
-db.sequelize.sync({ force: false }).then(function() {
-  app.listen(PORT, function() {
-    console.log("App listening on PORT " + PORT);
-  });
+db.sequelize.sync({ force: false }).then(function () {
+    app.listen(PORT, function () {
+        let message = "\n";
+        
+        message += "App listening on: ";
+        message += "\x1b[1m\x1b[36m" + "http://localhost:";
+        message += "\x1b[1m\x1b[33m" + PORT;
+        message += "\x1b[0m";
+
+        console.log(message);
+    });
 });
