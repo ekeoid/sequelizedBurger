@@ -36,8 +36,9 @@ db.sequelize.sync({ force: false }).then(function () {
         let message = "\n";
         
         message += "App listening on: ";
-        message += "\x1b[1m\x1b[36m" + "http://localhost:";
-        message += "\x1b[1m\x1b[33m" + PORT;
+        
+        message += "\x1b[0m\x1b[36m" + "http://localhost:";
+        message += "\x1b[1m\x1b[36m" + PORT;
         message += "\x1b[0m";
 
         console.log(message);
