@@ -7,7 +7,9 @@ const router = express.Router();
 //console.log(db.Burger);
 
 router.get("/api/burgers", function(req, res) {
-    db.burgers.findAll({}).then(function(result) {
+    db.burgers.findAll({
+        include: [db.customers]
+    }).then(function(result) {
         res.json(result);
     });
 });
@@ -27,7 +29,8 @@ router.put("/api/burgers/:id", function(req, res) {
 
     db.burgers.update({
         //burger_name: req.body.burger_name,
-        devoured: true
+        devoured: true,
+        customerId: req.body.customer_id
     }, {
         where: {
             id: req.params.id

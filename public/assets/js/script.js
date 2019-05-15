@@ -20,7 +20,8 @@ function renderTemplate(burgers) {
     for (let i = 0; i < burgers.length; i++) {
         let burger = burgers[i];
         if (burger.devoured) {
-            let devouredHTML = `<input class="form-control" type="text" placeholder="${burger.id} . ${burger.burger_name}" readonly>`
+            console.log(burger);
+            let devouredHTML = `<input class="form-control text-muted" type="text" placeholder="${burger.id} . ${burger.burger_name} devoured by ${burger.customer.name}" readonly>`
             $("#devoured").append(devouredHTML);
         } else {
             let burgerHTML = `
@@ -30,7 +31,7 @@ function renderTemplate(burgers) {
         </div>
         <div class="col-md-3 text-center">
             <form class="devour-form button-size">
-                <input input type="hidden" class="burger_id" type="text" value=${burger.id}><br>
+                <input input class="burger_id" type="text" data=${burger.id} placeholder="Customer Name"><br>
                 <button type="submit" class="btn btn-default">Devour it!</button>
             </form>
         </div>`;
@@ -43,13 +44,26 @@ function setupEventHandlers() {
     $(document).on("submit", ".devour-form", function (event) {
         event.preventDefault();
 
-        var burger_id = $(this).children(".burger_id").val();
+        var burger_id = $(this).children(".burger_id").attr("data");
         console.log(burger_id);
-        $.ajax("/api/burgers/" + burger_id, {
-            type: "PUT"
-        }).then(function (data) {
-            // Rerender the page with the updated list
-            displayPage();
+        var customer = $(this).children(".burger_id").val();
+        console.log(customer);
+
+        $.ajax("/api/customer/", {
+            type: "POST",
+            data: {
+                customer_name: customer
+            }
+        }).then(function(data){
+            console.log(data);
+            $.ajax("/api/burgers/" + burger_id, {
+                type: "PUT",
+                data: {
+                    customer_id: data.id
+                }
+            }).then(function (data) {
+                displayPage();
+            });
         });
 
     });
@@ -65,7 +79,6 @@ function setupEventHandlers() {
                 burger_name: burgerName
             }
         }).then(function (data) {
-            // Rerender the page with the updated list
             displayPage();
         });
 

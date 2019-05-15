@@ -25,10 +25,12 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // Import routes and give the server access to them.
-const apiRoutes = require("./routes/burger-api-routes");
+const burgerApiRoutes = require("./routes/burger-api-routes");
+const customerApiRoutes = require("./routes/customer-api-routes");
 const htmlRoutes = require("./routes/html-routes");
 
-app.use(apiRoutes);
+app.use(burgerApiRoutes);
+app.use(customerApiRoutes);
 app.use(htmlRoutes);
 
 db.sequelize.sync({ force: false }).then(function () {
